@@ -78,8 +78,13 @@ export default {
          this.model=res.data
        },
        async fetchParents(){
+          var mid=[]
           const res= await this.$http.get('/rest/categories')
-          this.parents=res.data
+          mid=res.data
+          for(var item of mid){
+            if(!item.parent)
+              this.parents.push(item)
+          }
        }
     },
     created(){
