@@ -1,7 +1,7 @@
 <template>
     <el-container style="height:100vh;">
   <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu router :default-openeds="['1']">
+    <el-menu router unique-opened :default-active="$route.path">
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i>内容管理</template>
         <el-menu-item-group>
@@ -20,6 +20,14 @@
          <el-menu-item index="/heroes/list">英灵列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
+      <el-submenu index="2">
+        <template slot="title"><i class="el-icon-message"></i>文章管理</template>
+          <el-menu-item-group>
+          <template slot="title">新闻</template>
+          <el-menu-item index="/news/create">新建新闻</el-menu-item>
+          <el-menu-item index="/news/list">新闻列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu >
     </el-menu>
   </el-aside>
   

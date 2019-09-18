@@ -35,7 +35,6 @@ const schema=new mongoose.Schema({
         name:{type:String},  //技能名称
         icon:{type:String},  //技能图标
         description:{type:String},  //技能描述
-        cd:{type:String}, //技能cd
     }],  
     type:{
         characteristic:{type:String},  //特性 呆毛脸 罗马
@@ -43,11 +42,16 @@ const schema=new mongoose.Schema({
         SpecialByEA:{type:String}  //被EA特攻
     },
     Growth:[{    //长度为10的数组
+        level:{type:String},
         ATK:{type:String},
         HP:{type:String},
     }
     ],
     role_detail:{type:String}, //角色信息 介绍    √
+    spend:[{
+        item_id:{type:mongoose.SchemaTypes.ObjectId,ref:"Category"}, //素材的_id号
+        num:{type:Number}   //所需素材的数量
+    }] //升级花费的材料 JSON.stringify  JSON.parse
 })
  
 module.exports=mongoose.model("Hero",schema,'heroes')

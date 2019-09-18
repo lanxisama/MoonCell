@@ -6,8 +6,12 @@ import CategoryList from './views/Category/CategoryList'
 
 import ItemEdit from './views/Item/ItemEdit'
 import ItemList from './views/Item/ItemList'
+
 import HeroEdit from './views/Hero/HeroEdit'
 import HeroList from './views/Hero/HeroList'
+
+import NewsEdit from './views/News/NewsEdit'
+import NewsList from './views/News/NewsList'
 Vue.use(Router)
 
 export default new Router({
@@ -57,6 +61,20 @@ export default new Router({
         {
           path:"/heroes/edit/:id",
           component:HeroEdit,
+          props:true
+        },
+        //-----------------
+        {
+          path:"/news/create",
+          component:NewsEdit
+        },
+        {
+          path:"/news/list",
+          component:NewsList
+        },
+        {
+          path:"/news/edit/:id",
+          component:NewsEdit,
           props:true
         },
         //-----------------

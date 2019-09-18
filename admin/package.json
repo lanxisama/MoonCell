@@ -14,7 +14,8 @@
     "element-ui": "^2.4.5",
     "v-charts": "^1.19.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

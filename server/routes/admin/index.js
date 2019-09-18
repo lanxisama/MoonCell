@@ -68,6 +68,10 @@ module.exports=(app)=>{
                 const hidden_attribute =await Category.find({parent:"5d7737609ac5d12f70f803c1"}).populate('parent')
                 rs.send(hidden_attribute)
             }
+            if(modelName==='item-parent'){
+                const item_parent =await Category.find({parent:"5d81cee3b5919b367c1f1038"}).populate('parent')
+                rs.send(item_parent)
+            }
         }
      
     },router)

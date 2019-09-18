@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ve-line :data="chartData" :settings="chartSettings" :width="width"></ve-line>
+    <!-- :loading="false" 设置是否显示加载动画-->
+    <ve-line :data="chartData" :settings="chartSettings" width="700px" height="300px" :loading="heroData.length===0"></ve-line>
   </div>
  
 </template>
@@ -8,46 +9,38 @@
 <script>
 // v-charts 需要先安装echarts才能用
 import VeLine from 'v-charts/lib/line.common'
+import 'v-charts/lib/style.css'
 export default {
   components: { VeLine },
-  props:["heroData"],
+  props:{
+    heroData:{
+      type:Array
+    }
+  },
   data () {
     this.chartSettings = {
-        
+        label: {
+        normal: { show: true }
+      }
     }
     return {
-        width:"",
-        newData:[],
         chartData: {
         columns: ["level","ATK","HP"],
-        rows: []
+        rows:[]
       }
     }
   },
   methods:{
-      NewData(){
-          for(var item in this.heroData){
-              var newobj={}
-              const level=""
-              console.log(typeof item)
-              if(item ==="0"){
-                    level="1"
-              }
-              else{
-                    level=item+0
-              }
-              newobj.level=level
-              newobj.ATK=this.heroData[item].ATK
-              newobj.HP=this.heroData[item].HP
-              this.newData.push(newobj)
-          }
-      this.chartData.rows=this.newData
-      }
+ 
+  },
+  computed:{
+
+  },
+  updated(){
+      this.chartData.rows=this.heroData
   },
   created(){
-       this.NewData()
-       this.width="100%"
-       console.log(this.chartData.rows)
+      // this.chartData.rows=this.heroData
   },
 
 }
