@@ -47,6 +47,14 @@ const schema=new mongoose.Schema({
         HP:{type:String},
     }
     ],
+    treasure:{
+        name:{type:String},
+        rank:{type:String},
+        icon:{type:String},
+        num:{type:String}, //数值
+        description:{type:String},
+        
+    }, //宝具
     role_detail:{type:String}, //角色信息 介绍    √
     spend:[{
         item_id:{type:mongoose.SchemaTypes.ObjectId,ref:"Category"}, //素材的_id号

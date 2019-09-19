@@ -1,6 +1,5 @@
 <template>
     <div id="create">
-        
         <h1>{{id ?"编辑英灵":"新建英灵"}}</h1>
         <el-form label-width="120px" @submit.native.prevent="save" >
             <div style="margin-top: 1rem;" >
@@ -25,12 +24,12 @@
             </el-form-item>
             <el-form-item label="职阶">
               <el-select v-model="model.rank">
-                <el-option v-for="item in ranks":key="item._id" :label="item.name" :value="item._id"></el-option>
+                <el-option v-for="item in ranks" :key="item._id" :label="item.name" :value="item._id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="性别">
               <el-select v-model="model.sex">
-                <el-option v-for="(item,index) in sex":key="index" :label="item" :value="item"></el-option>
+                <el-option v-for="(item,index) in Sex" :key="index" :label="item" :value="item"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item  label="身高/(cm)">
@@ -41,12 +40,12 @@
             </el-form-item>
             <el-form-item label="属性">
               <el-select v-model="model.attributes" filterable multiple>
-                <el-option v-for="item in attributes":key="item._id" :label="item.name" :value="item._id"></el-option>
+                <el-option v-for="item in attributes" :key="item._id" :label="item.name" :value="item._id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="隐藏属性">
               <el-select v-model="model.hidden_attribute">
-                <el-option v-for="item in hidden_attributes":key="item._id" :label="item.name" :value="item._id"></el-option>
+                <el-option v-for="item in hidden_attributes" :key="item._id" :label="item.name" :value="item._id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="头像">
@@ -63,7 +62,7 @@
              <el-form-item label="稀有度" >
                   <el-rate
                     style="margin-top:0.69rem" 
-                    :texts=this.stars
+                    :texts=Stars
                     :max="5"
                     v-model="model.star"
                     show-text>
@@ -88,7 +87,7 @@
                     </el-button>
                 </el-form-item>
                 <el-row>
-                  <el-col v-for="(item,index) in model.skills":key="index" style="padding:1rem;border:1px solid #EEEEEE;margin-top:1rem;">
+                  <el-col v-for="(item,index) in model.skills" :key="index" style="padding:1rem;border:1px solid #EEEEEE;margin-top:1rem;">
                     <el-form-item  label="技能名称">
                         <el-input v-model="item.name" ></el-input>
                     </el-form-item>
@@ -103,7 +102,7 @@
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item  label="冷却值">
+                    <el-form-item  label="冷却">
                         <el-input v-model="item.cd" ></el-input>
                     </el-form-item>
                     <el-form-item  label="技能描述">
@@ -123,7 +122,7 @@
                     </el-button>
                 </el-form-item>
                 <el-row>
-                  <el-col v-for="(item,index) in model.grade_skills":key="index" style="padding:1rem;border:1px solid #EEEEEE;margin-top:1rem;">
+                  <el-col v-for="(item,index) in model.grade_skills" :key="index" style="padding:1rem;border:1px solid #EEEEEE;margin-top:1rem;">
                     <el-form-item  label="技能名称">
                         <el-input v-model="item.name" ></el-input>
                     </el-form-item>
@@ -150,50 +149,77 @@
               </el-tab-pane>
               <el-tab-pane label="宝具设定" name="treasureMessage" >
                 宝具设定  Treasure
+                宝具名
+                <el-form-item label="宝具名">
+                  <el-input  v-model="model.treasure.name"></el-input>
+                </el-form-item>
+                <el-form-item label="宝具等级">
+                    <el-select v-model="model.treasure.rank">
+                        <el-option v-for='(r,index) in Rank' :key="index" :label="r" :value="r"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="图标">
+                          <el-upload
+                          class="avatar-uploader"
+                          :action="$http.defaults.baseURL+'/upload'"
+                          :show-file-list="false"
+                          :on-success="res=>$set(model.treasure,'icon',res.url)"
+                          >
+                          <img v-if="model.treasure.icon" :src="model.treasure.icon" class="avatar">
+                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                          </el-upload>
+                      </el-form-item>
+                <el-form-item label="数值">
+                   <el-input label="数值" v-model="model.treasure.num"></el-input>
+                </el-form-item>
+                <el-form-item label="描述">
+                  <el-input type="textarea" v-model="model.treasure.description" row=5></el-input>
+                </el-form-item>
+
               </el-tab-pane>
               <el-tab-pane label="设定信息" name="optionMessage">
                     <el-row type="flex" justify="space-around">
                       <el-col>
                     <el-form-item label="筋力">
                       <el-select v-model="model.property.strength">
-                        <el-option v-for='(item,index) in ["A","B","C","D","E"]'  :key="index" :label="item" :value="item"></el-option>
+                        <el-option v-for='(item,index) in Rank'  :key="index" :label="item" :value="item"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="耐力">
                       <el-select v-model="model.property.durable">
-                        <el-option v-for='(item,index) in ["A","B","C","D","E"]'  :key="index" :label="item" :value="item"></el-option>
+                        <el-option v-for='(item,index) in Rank'  :key="index" :label="item" :value="item"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="敏捷">
                       <el-select v-model="model.property.agile">
-                        <el-option v-for='(item,index) in ["A","B","C","D","E"]'  :key="index" :label="item" :value="item"></el-option>
+                        <el-option v-for='(item,index) in Rank'  :key="index" :label="item" :value="item"></el-option>
                       </el-select>
                     </el-form-item>
                       <el-form-item label="魔法">
                       <el-select v-model="model.property.magic">
-                        <el-option v-for='(item,index) in ["A","B","C","D","E"]'  :key="index" :label="item" :value="item"></el-option>
+                        <el-option v-for='(item,index) in Rank'  :key="index" :label="item" :value="item"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="幸运">
                       <el-select v-model="model.property.lucky">
-                        <el-option v-for='(item,index) in ["A","B","C","D","E"]'  :key="index" :label="item" :value="item"></el-option>
+                        <el-option v-for='(item,index) in Rank'  :key="index" :label="item" :value="item"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="宝具">
                       <el-select v-model="model.property.treasure">
-                        <el-option v-for='(item,index) in ["A","B","C","D","E"]'  :key="index" :label="item" :value="item"></el-option>
+                        <el-option v-for='(item,index) in Rank'  :key="index" :label="item" :value="item"></el-option>
                       </el-select>
                     </el-form-item>
                      </el-col>
                      <el-col>
                       <el-form-item label="人型">
                         <el-select v-model="model.type.Human_type">
-                          <el-option v-for='(item,index) in ["是","否"]'  :key="index" :label="item" :value="item"></el-option>
+                          <el-option v-for='(item,index) in TrF'  :key="index" :label="item" :value="item"></el-option>
                         </el-select>
                       </el-form-item>
                       <el-form-item label="被EA特攻">
                         <el-select v-model="model.type.SpecialByEA">
-                          <el-option v-for='(item,index) in ["是","否"]'  :key="index" :label="item" :value="item"></el-option>
+                          <el-option v-for='(item,index) in TrF'  :key="index" :label="item" :value="item"></el-option>
                         </el-select>
                       </el-form-item>
                       <el-form-item label="特性">
@@ -207,10 +233,10 @@
                         <i class="el-icon-lollipop"></i> 增加10级
                        </el-button>
                       <el-row type="flex" style="flex-wrap:wrap;">
-                          <el-col v-for="(item,index) in  model.Growth":key="index" style="margin-top:1rem;">
+                          <el-col v-for="(item,index) in  model.Growth" :key="index" style="margin-top:1rem;">
                             <h1 style="display:none">{{item.level=String(index*10)}}</h1>
                           <strong>{{item.level}}级数据</strong>
-                          <el-button @click="model.spend.splice(item,1)" type="danger" circle size="mini" style="margin-left:1rem;">
+                          <el-button @click="model.Growth.splice(item,1)" type="danger" circle size="mini" style="margin-left:1rem;">
                          <i class="el-icon-delete"></i> 
                          </el-button>
                       <el-form-item label="ATK">
@@ -244,10 +270,10 @@
                 <el-form-item label="升级材料">
                      <el-row type="flex" style="flex-wrap:wrap;">
                        <el-button @click="model.spend.push({})" round size="mini">新加一列</el-button>
-                       <el-col v-for="item in model.spend" style="padding:1rem;border:1px solid #EEEEEE;margin-top:1rem;">
+                       <el-col v-for="(item,index) in model.spend" :key="index" style="padding:1rem;border:1px solid #EEEEEE;margin-top:1rem;">
                             <el-form-item label="素材">
                               <el-select v-model="item.item_id" filterable>
-                                <el-option v-for="item in items":key="item._id" :label="item.name" :value="item._id"></el-option>
+                                <el-option v-for="item in items" :key="item._id" :label="item.name" :value="item._id"></el-option>
                               </el-select>
                             </el-form-item>
                             <el-form-item label="数量">
@@ -269,6 +295,7 @@
 </template>
 <script>
 import Charts from '../../components/Charts'
+import {mapState} from 'vuex'
 export default {
     props:{
       id:{}
@@ -283,13 +310,11 @@ export default {
             dialogImageUrl: '',
             dialogVisible: false,
             status:"baseMessage",
-            sex:{man:"男",woman:"女",other:"其他"},
             hidden_attributes:{},
             active:0,
             ranks:{},
             attributes:{},
             star:0,
-            stars:["1星","2星","3星","4星","5星"],
             cards:[],
             //英灵参数
             model:{
@@ -307,21 +332,22 @@ export default {
                 property:{
                   strength:"",
                 },
+                treasure:{},
                 type:{
                   Human_type:"",
                   SpecialByEA:""
                 },
                 Growth:[],  //长度是10的数组
+                grade_skills:[],
                 skills:[],
                 spend:[] //材料花费
                 },
         }
     },
     methods:{
-        handleRemove(file, fileList) {
-          console.log(file, fileList);
-          
-        },
+        // handleRemove(file, fileList) {
+        //   console.log(file, fileList);
+        // },
         handlePictureCardPreview(file) {
           this.dialogImageUrl = file.url;
           this.dialogVisible = true;
@@ -375,11 +401,9 @@ export default {
             console.log(this.items)
        }
     },
-    // watch:{
-    //     star(){
-    //       console.log(this.star)
-    //     }
-    // },
+    computed:{
+        ...mapState(['Rank','TrF','Sex','Stars'])
+    },
     created(){
       this.id&&this.fetch()
       this.fetchRank()
