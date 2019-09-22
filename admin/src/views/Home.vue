@@ -27,6 +27,19 @@
           <el-menu-item index="/news/create">新建新闻</el-menu-item>
           <el-menu-item index="/news/list">新闻列表</el-menu-item>
         </el-menu-item-group>
+          <el-menu-item-group>
+          <template slot="title">文章</template>
+          <el-menu-item index="/article/create">新建文章</el-menu-item>
+          <el-menu-item index="/article/list">文章列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu >
+    <el-submenu index="3">
+        <template slot="title"><i class="el-icon-message"></i>权限管理</template>
+          <el-menu-item-group>
+          <template slot="title">管理员</template>
+          <el-menu-item index="/admin_user/create">新建用户</el-menu-item>
+          <el-menu-item index="/admin_user/list">用户列表</el-menu-item>
+        </el-menu-item-group>
       </el-submenu >
     </el-menu>
   </el-aside>

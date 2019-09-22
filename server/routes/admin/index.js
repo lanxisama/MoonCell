@@ -1,7 +1,12 @@
 //router>admin>index.js
 
 module.exports=(app)=>{
+    const AdminUser=require('../../models/AdminUser')
+    const jwt =require('jsonwebtoken')
+    const assert=require('http-assert')
     const express=require('express')
+    const authorMid=require('../../middleware/auth')()
+    const resource=require('../../middleware/resource')()
     const router=express.Router({
         mergeParams:true
     })
@@ -36,45 +41,17 @@ module.exports=(app)=>{
         })
     })
 
-
-
-
-
-
-
-
-    app.use('/admin/api/rest/:resource',async(rq,rs,next)=>{
-        const modelName=rq.params.resource
-        const Category =require('../../models/Category')
-        const inflection=require('inflection')
-        try{
-            const Model=require(`../../models/${inflection.classify(modelName)}`)
-            if(Model){
-                rq.Model=Model
-                next()
-            }
-        }
-        catch(e){
-            if(modelName==='rank'){
-                //如果模型中查找不到modelName 则该操作不按照正常查找
-                const rank =await Category.find({parent:"5d7736db9ac5d12f70f803bd"}).populate('parent')
-                rs.send(rank)
-            }
-            if(modelName==='attribute'){
-                const attribute =await Category.find({parent:"5d7737249ac5d12f70f803c0"}).populate('parent')
-                rs.send(attribute)
-            }
-            if(modelName==='hidden_attribute'){
-                const hidden_attribute =await Category.find({parent:"5d7737609ac5d12f70f803c1"}).populate('parent')
-                rs.send(hidden_attribute)
-            }
-            if(modelName==='item-parent'){
-                const item_parent =await Category.find({parent:"5d81cee3b5919b367c1f1038"}).populate('parent')
-                rs.send(item_parent)
-            }
-        }
-     
-    },router)
+    // async (rq, rs, next) => {
+    //     const token = String(rq.headers.authorization || '').split(' ').pop()
+    //     assert(token, 401, '请先登录')
+    //     const { id } = jwt.verify(token, rq.app.get('secret'))
+    //     assert(id, 401, '请先登录')
+    //     rq.user = await AdminUser.findById(id)
+    //     assert(rq.user, 401, '请先登录')
+    //     await next()
+    //   }
+    app.use('/admin/api/rest/:resource',authorMid
+    ,resource,router)
 
     const multer=require("multer")
     const upload=multer({dest:__dirname+'/../../uploads'})
@@ -84,4 +61,34 @@ module.exports=(app)=>{
         rs.send(file)
     })
 
+
+    app.post('/admin/api/login',async(rq,rs)=>{
+        const{username,password}=rq.body
+        const user=await AdminUser.findOne({username:username}).select('+password')
+        assert(user,422,'用户不存在')
+        const isValid = require('bcrypt').compareSync(password,user.password)
+        assert(isValid,422,'密码错误')
+        // if(!isValid){
+            //密码不对
+            // rs.status(422).send({
+            //     message:"密码错误"
+            // })
+        // }
+
+        //返回token
+
+        const token=jwt.sign({
+           username:user.username,
+        },app.get('secret'))
+         
+        rs.send({token})
+    })
+    
+
+    app.use(async(err,rq,rs,next)=>{
+        rs.status(err.statusCode||500).send({
+            message:err.message
+        })
+        
+    })
 }

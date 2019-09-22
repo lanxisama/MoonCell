@@ -12,10 +12,23 @@ import HeroList from './views/Hero/HeroList'
 
 import NewsEdit from './views/News/NewsEdit'
 import NewsList from './views/News/NewsList'
+
+import ArticleEdit from './views/Article/ArticleEdit'
+import ArticleList from './views/Article/ArticleList'
+
+import AdminUserEdit from './views/AdminUser/AdminUserEdit'
+import AdminUserList from './views/AdminUser/AdminUserList'
+
+import Login from './views/Login'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'/login',
+      name:'login',
+      component:Login
+    },
     {
       path:"/",
       name:Home,
@@ -75,6 +88,34 @@ export default new Router({
         {
           path:"/news/edit/:id",
           component:NewsEdit,
+          props:true
+        },
+        //-----------------
+        {
+          path:"/article/create",
+          component:ArticleEdit
+        },
+        {
+          path:"/article/list",
+          component:ArticleList
+        },
+        {
+          path:"/article/edit/:id",
+          component:ArticleEdit,
+          props:true
+        },
+        //-----------------
+        {
+          path:"/admin_user/create",
+          component:AdminUserEdit
+        },
+        {
+          path:"/admin_user/list",
+          component:AdminUserList
+        },
+        {
+          path:"/admin_user/edit/:id",
+          component:AdminUserEdit,
           props:true
         },
         //-----------------
