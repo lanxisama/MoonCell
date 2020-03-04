@@ -20,7 +20,7 @@ export default {
   data () {
     this.chartSettings = {
         label: {
-        normal: { show: true }
+        normal: { show: true },
       }
     }
     return {

@@ -229,16 +229,17 @@
                       </el-col>
                      </el-row>
                      成长属性
-                     <el-button @click="model.Growth.push({})" round size="mini">
+                     <el-button @click="(model.Growth.length<11)&&model.Growth.push({})" round size="mini">
                         <i class="el-icon-lollipop"></i> 增加10级
                        </el-button>
-                      <el-row type="flex" style="flex-wrap:wrap;">
-                          <el-col v-for="(item,index) in  model.Growth" :key="index" style="margin-top:1rem;">
-                            <h1 style="display:none">{{item.level=String(index*10)==0?1:String(index*10)}}</h1>
-                          <strong>{{item.level}}级数据</strong>
-                          <el-button @click="model.Growth.splice(item,1)" type="danger" circle size="mini" style="margin-left:1rem;">
+                      <el-button @click="model.Growth.splice(model.Growth.length-1,1)" type="danger" circle size="mini" style="margin-left:1rem;">
                          <i class="el-icon-delete"></i> 
                          </el-button>
+                      <el-row type="flex" style="flex-wrap:wrap;">
+                          <el-col v-for="(item,index) in  model.Growth" :key="index" style="margin-top:1rem;">
+                            <h1 style="display:none">{{item.level=String(index*10)==0?"1":String(index*10)}}</h1>
+                          <strong>{{item.level}}级数据</strong>
+
                       <el-form-item label="ATK">
                             <el-input v-model="item.ATK" maxlength="10" show-word-limit></el-input>
                       </el-form-item>
