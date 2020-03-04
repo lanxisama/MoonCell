@@ -234,7 +234,7 @@
                        </el-button>
                       <el-row type="flex" style="flex-wrap:wrap;">
                           <el-col v-for="(item,index) in  model.Growth" :key="index" style="margin-top:1rem;">
-                            <h1 style="display:none">{{item.level=String(index*10)}}</h1>
+                            <h1 style="display:none">{{item.level=String(index*10)==0?1:String(index*10)}}</h1>
                           <strong>{{item.level}}级数据</strong>
                           <el-button @click="model.Growth.splice(item,1)" type="danger" circle size="mini" style="margin-left:1rem;">
                          <i class="el-icon-delete"></i> 

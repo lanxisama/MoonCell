@@ -1,6 +1,7 @@
 <template>
     <div id="create">
-        <h1>{{id ?"编辑分类":"新建分类"}}</h1>
+      <el-card :header='id ?"编辑分类":"新建分类"'>
+        <!-- <h1>{{id ?"编辑分类":"新建分类"}}</h1> -->
         <el-form label-width="120px" @submit.native.prevent="save">
             <el-form-item label="上级分类">
               <el-select v-model="model.parent" filterable>
@@ -19,15 +20,14 @@
                   </el-upload>
             </el-form-item>
             <el-form-item label="分类名称">
-                <el-input v-model="model.name"></el-input>
+                <el-input v-model="model.name" clearable style="width:250px;"></el-input>
             </el-form-item>
   
             <el-form-item>
-                <el-button native-type="submit" type="primary">保存</el-button>
+                <el-button native-type="submit" type="primary" >保存</el-button>
             </el-form-item>
-
         </el-form>
-
+    </el-card>
     </div>
 
 
