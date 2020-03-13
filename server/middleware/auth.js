@@ -6,7 +6,8 @@ module.exports = options => {
     return async(rq,rs,next)=>{
         const token=String(rq.headers.authorization).split(' ').pop() ||''
         assert(token,401,'登陆') 
-        const {username} = jwt.verify(token, rq.app.get('secret'))
+        const {username,adminType} = jwt.verify(token, rq.app.get('secret'))
+        console.log(username,adminType)
         assert(username, 401, '请先登录')
         rq.user = await AdminUser.findOne({username})
         assert(rq.user, 401, '请先登录')

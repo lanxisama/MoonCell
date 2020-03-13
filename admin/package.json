@@ -12,6 +12,7 @@
     "core-js": "^2.6.5",
     "echarts": "^4.2.1",
     "element-ui": "^2.4.5",
+    "jwt-decode": "^2.2.0",
     "v-charts": "^1.19.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

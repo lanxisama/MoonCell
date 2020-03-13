@@ -65,6 +65,7 @@ module.exports=(app)=>{
     app.post('/admin/api/login',async(rq,rs)=>{
         const{username,password}=rq.body
         const user=await AdminUser.findOne({username:username}).select('+password')
+        const adminType = user.adminType
         assert(user,422,'用户不存在')
         const isValid = require('bcrypt').compareSync(password,user.password)
         assert(isValid,422,'密码错误')
@@ -76,12 +77,12 @@ module.exports=(app)=>{
         // }
 
         //返回token
-
         const token=jwt.sign({
            username:user.username,
+           adminType:user.adminType
         },app.get('secret'))
-         
-        rs.send({token})
+        rs.send({token,username,adminType})
+
     })
     
 

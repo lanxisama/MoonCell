@@ -7,6 +7,7 @@ const schema=new mongoose.Schema({
         set(val){
         return bcrypt.hashSync(val,10)
     }}, //分类
+    adminType:{type:Number}     //1-普通管理员         2-系统管理员(可修改查看账号信息)
 },{
     timestamps:true //创建时候自动添加时间戳
 })

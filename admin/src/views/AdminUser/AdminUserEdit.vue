@@ -8,6 +8,12 @@
               <el-form-item label="密码">
                 <el-input v-model="model.password" type="password"></el-input>
             </el-form-item>
+            <el-form-item label="账号类型">
+                    <el-select v-model="model.adminType">
+                        <el-option label="普通管理员" :value="1"></el-option>
+                        <el-option label="系统管理员" :value="2"></el-option>
+                    </el-select>
+            </el-form-item>
             <el-form-item>
                 <el-button native-type="submit" type="primary">保存</el-button>
             </el-form-item>
@@ -27,13 +33,12 @@ export default {
     },
     data(){
         return{
-            model:{},
+            model:{
+
+            },
         }
     },
     methods:{
-        afterUpload(res){
-            this.model.icon=res.url
-        },
         async save(){
             let res
             if(this.id){

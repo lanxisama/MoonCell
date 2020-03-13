@@ -23,7 +23,6 @@ http.interceptors.response.use(res=>{
             type:'error',
             message:err.response.data.message
         })
-        console.log(err.response.status)
         if(err.response.status===401 || err.response.status===500){
             router.push('/login')
         }

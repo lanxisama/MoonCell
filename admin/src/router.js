@@ -22,12 +22,13 @@ import AdminUserList from './views/AdminUser/AdminUserList'
 import Login from './views/Login'
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path:'/login',
       name:'login',
-      component:Login
+      component:Login,
+      meta:{isPublic:true}
     },
     {
       path:"/",
@@ -107,19 +108,44 @@ export default new Router({
         //-----------------
         {
           path:"/admin_user/create",
-          component:AdminUserEdit
+          component:AdminUserEdit,
+          
         },
         {
           path:"/admin_user/list",
-          component:AdminUserList
+          component:AdminUserList,
+        
         },
         {
           path:"/admin_user/edit/:id",
           component:AdminUserEdit,
-          props:true
+          props:true,
+          
         },
         //-----------------
     ]
     },
   ]
 })
+
+router.beforeEach((to,from,next)=>{
+  
+  if(!to.meta.isPublic && !localStorage.token)
+  {
+    return next('/login')
+  }
+  if(to.path.indexOf('admin_user')!=-1 && localStorage.adminType==1){
+    console.log(from.path)
+    //说明访问的是和权限相关的东西 
+    Vue.prototype.$message({
+      type:'error',
+      message:'对不起，你没有权限'
+    })
+    return next(from.path)
+
+    
+  }
+  next()
+})
+
+export default router

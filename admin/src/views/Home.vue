@@ -46,25 +46,29 @@
   
   <el-container>
     <el-header style="text-align: right; font-size: 12px">
+      <span class="marginRight">这地方是用户名</span>
       <el-dropdown>
         <i class="el-icon-setting" style="margin-right: 15px"></i>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>查看</el-dropdown-item>
-          <el-dropdown-item>新增</el-dropdown-item>
-          <el-dropdown-item>删除</el-dropdown-item>
+          <el-dropdown-item>
+            <el-button @click="exit()" style="border:none;">退出账号</el-button>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <span>人类·恶</span>
+
     </el-header>
     
     <el-main>
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
     </el-main>
   </el-container>
 </el-container>
 </template>
 
 <style>
+.marginRight{
+  margin-right: 5px;
+}
   .el-header {
     background-color: #B3C0D1;
     color: #333;
@@ -86,6 +90,16 @@
       };
       return {
         tableData: Array(20).fill(item)
+      }
+    },
+    methods:{
+      exit(){
+        localStorage.clear();
+        this.$router.push('/login');
+        this.$message({
+          type:"success",
+          message:"退出成功"
+        })
       }
     }
   };
