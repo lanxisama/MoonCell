@@ -19,6 +19,8 @@ import ArticleList from './views/Article/ArticleList'
 import AdminUserEdit from './views/AdminUser/AdminUserEdit'
 import AdminUserList from './views/AdminUser/AdminUserList'
 
+import BannerEdit from './views/Banner/BannerEdit'
+import BannerList from './views/Banner/BannerList'
 import Login from './views/Login'
 Vue.use(Router)
 
@@ -123,6 +125,22 @@ const router =  new Router({
           
         },
         //-----------------
+        {
+          path:"/banner/create",
+          component:BannerEdit,
+          
+        },
+        {
+          path:"/banner/list",
+          component:BannerList,
+        
+        },
+        {
+          path:"/banner/edit/:id",
+          component:BannerEdit,
+          props:true,
+          
+        },
     ]
     },
   ]

@@ -30,6 +30,7 @@ export default {
           console.log(res)
           localStorage.token=res.data.token
           localStorage.adminType= res.data.adminType
+          localStorage.username = res.data.username
           this.$router.push('/')
           this.$message({
               type:'success',

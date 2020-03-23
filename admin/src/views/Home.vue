@@ -19,6 +19,11 @@
           <el-menu-item index="/heroes/create">新建英灵</el-menu-item>
          <el-menu-item index="/heroes/list">英灵列表</el-menu-item>
         </el-menu-item-group>
+        <el-menu-item-group>
+          <template slot="title">Banner</template>
+          <el-menu-item index="/banner/create">新建Banner</el-menu-item>
+         <el-menu-item index="/banner/list">Banner列表</el-menu-item>
+        </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-message"></i>文章管理</template>
@@ -46,7 +51,7 @@
   
   <el-container>
     <el-header style="text-align: right; font-size: 12px">
-      <span class="marginRight">这地方是用户名</span>
+      <span class="marginRight">{{username}}</span>
       <el-dropdown>
         <i class="el-icon-setting" style="margin-right: 15px"></i>
         <el-dropdown-menu slot="dropdown">
@@ -83,14 +88,9 @@
 <script>
   export default {
     data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
-      return {
-        tableData: Array(20).fill(item)
-      }
+        return {
+          
+        }
     },
     methods:{
       exit(){
@@ -100,6 +100,11 @@
           type:"success",
           message:"退出成功"
         })
+      },
+    },
+    computed:{
+      username(){
+        return localStorage.username
       }
     }
   };

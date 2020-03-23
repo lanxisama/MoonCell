@@ -134,7 +134,7 @@
                         :on-success="res=>$set(item,'icon',res.url)"
                         >
                         <img v-if="item.icon" :src="item.icon" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
                     <el-form-item  label="技能描述">
@@ -280,7 +280,7 @@
                             <el-form-item label="数量">
                                 <el-input-number v-model="item.num" :min="1" :max="999"></el-input-number>
                             </el-form-item>
-                            <el-button @click="model.Growth.splice(item,1)" type="danger" circle size="mini" style="margin-left:1rem;">删除</el-button>
+                            <el-button @click="model.spend.splice(item,1)" type="danger" circle size="mini" style="margin-left:1rem;">删除</el-button>
                        </el-col>
                      </el-row>
                 </el-form-item>
@@ -403,7 +403,7 @@ export default {
        }
     },
     computed:{
-        ...mapState(['Rank','TrF','Sex','Stars'])
+        ...mapState(['Rank','TrF','Sex','Stars']) //获取Vuex中数据
     },
     created(){
       this.id&&this.fetch()

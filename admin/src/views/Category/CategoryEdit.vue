@@ -56,21 +56,21 @@ export default {
         async save(){
             let res
             if(this.id){
-              res=await this.$http.put(`/rest/categories/${this.id}`,this.model)
-              this.$router.push('/categories/list')
-              this.$message({
-              type:"success",
-              message:"编辑成功"
-              })
+                res=await this.$http.put(`/rest/categories/${this.id}`,this.model)
+                this.$router.push('/categories/list')
+                this.$message({
+                type:"success",
+                message:"编辑成功"
+                })
             }
             else
             {
-              res=await this.$http.post('/rest/categories',this.model)
-              this.$router.push('/categories/list')
-              this.$message({
-              type:"success",
-              message:"保存成功"
-              })
+                res=await this.$http.post('/rest/categories',this.model)
+                this.$router.push('/categories/list')
+                this.$message({
+                type:"success",
+                message:"保存成功"
+                })
             }
         },
        async fetch(){
