@@ -1,6 +1,8 @@
 <template>
     <div id="list">
-        <el-table :data="pageList">
+        <el-table 
+        :data="pageList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+        >
             <el-table-column prop="parent._id" label="上级分类" ></el-table-column>
             <el-table-column prop="_id" label="ID" width="220px"></el-table-column>
             <el-table-column prop="icon" label="图标">
@@ -9,7 +11,13 @@
                 </template>
             </el-table-column>
             <el-table-column prop="name" label="名称"></el-table-column>
-            <el-table-column label="操作">
+            <el-table-column >
+                    <template slot="header" slot-scope="scope">
+                        <el-input
+                        v-model="search"
+                        size="mini"
+                        placeholder="输入关键字搜索"/>
+                    </template>
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -40,7 +48,8 @@ export default {
             currentPage1:1,
             pageSize:10,
             categoryList:[],
-            pageList:[]
+            pageList:[],
+            search:''
         }
     },
     methods:{

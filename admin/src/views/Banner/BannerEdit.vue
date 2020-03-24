@@ -24,7 +24,7 @@
                 <el-form-item label="对应新闻">
                   <!-- <el-input v-model="banner.url"></el-input> -->
                   <el-select v-model="banner.url">
-                      <el-option v-for='(news,index) in model.NewsList'  :key="index" :label="news.title" :value="news._id"></el-option>
+                      <el-option v-for='(news,index) in NewsList'  :key="index" :label="news.title" :value="news._id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-button @click="model.bannerList.splice(index,1)" round type="danger" size="mini">
@@ -55,17 +55,19 @@ export default {
                 url:""
               }
             ],
-            NewsList:''
+            
+        },
+      NewsList:''
 
-        }
     };
   },
   methods:{
     async save(){
           let res 
+          console.log(this.model.bannerList)
           if(this.id){
             //编辑
-              res=await this.$http.put(`/rest/banner/${this.id}`,this.model.bannerList)
+              res=await this.$http.put(`/rest/banner/${this.id}`,this.model)
               this.$router.push('/banner/list')
               this.$message({
               type:"success",
@@ -83,12 +85,18 @@ export default {
       },
     async fetchNews(){
       const res = await this.$http.get('/rest/news')
-      this.model.NewsList = res.data
-      console.log(this.model.NewsList,res.data)
+      this.NewsList = res.data
+    },
+    async fetch(){
+      var res = await this.$http.get(`/rest/banner/${this.id}`)
+      console.log(res.data.bannerList)
+      this.model.bannerList = res.data.bannerList
+      // console.log(this.bannerList)
     }
   },
   created(){
     this.fetchNews()  //获取新闻列表
+    this.id && this.fetch()
   }
 }
 </script>
