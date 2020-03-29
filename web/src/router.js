@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Hero from './views/Hero/Hero.vue'
 import HeroList from './views/Hero/HeroList.vue'
-
+import Article from './views/Article/Article'
 Vue.use(Router)
 
 export default new Router({
@@ -22,8 +22,13 @@ export default new Router({
           path:'/HeroList',
           name:'herolist',
           component:HeroList
-        }
+        },
       ]
     },
+    {
+      path:'/Article/:id',
+      props:true,
+      component:Article
+    }
   ]
 })

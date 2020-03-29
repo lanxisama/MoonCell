@@ -1,3 +1,4 @@
+@import './variables.scss';
 // reset
 
 *{
@@ -18,27 +19,13 @@ body{
 
 a{
     color: #999;
+    text-decoration: none;
 }
 
-//colors
-
-$colors:(
-    "primary":white,
-    "black":black,
-    "light-blue":rgb(78, 78, 255),
-    "dark-blue":rgb(37, 37, 184),
-);
-
-//font size
-$base-font-size:1rem;
-$font-sizes:(
-    xxs:0.6154,
-    xs:0.7692,
-    sm:0.9231,
-    md:1,
-    lg:1.0769,
-    xl:1.2308
-);
+p{
+    margin:0;
+    padding:0;
+}
 
 @each $colorKey,$color in $colors {
     .text-#{$colorKey}{
@@ -54,7 +41,7 @@ $font-sizes:(
 
 @each $val in (left,center,right) {
     .text-#{$val}{
-        text-align: $val;
+        text-align: $val !important;
     }
 };
 
@@ -75,13 +62,7 @@ $font-sizes:(
     flex-direction: column;
 }
 
-$flex-jc:(
-    start:flex-start,
-    end:flex-end,
-    center:center,
-    between:space-between,
-    around:space-around,
-);
+
 
 @each $jcKey,$jc in $flex-jc {
     .jc-#{$jcKey}{
@@ -89,12 +70,7 @@ $flex-jc:(
     }  
 }
 
-$flex-ai:(
-    start:flex-start,
-    end:flex-end,
-    center:center,
-    stretch:stretch,
-);
+
 
 @each $aiKey,$ai in $flex-ai {
     .ai-#{$aiKey}{
@@ -110,28 +86,8 @@ $flex-ai:(
 }
 
 
-// spacing
-$spacing-types:(
-    m:margin,
-    p:padding
-);
 
-$spacing-direction:(
-    t:top,
-    r:right,
-    b:bottom,
-    l:left
-);
 
-$spacing-base-size:1rem;
-$spacing-sizes:(
-    0:0,
-    1:0.25,
-    2:0.5,
-    3:1,
-    4:1.5,
-    5:3
-);
 
 @each $typeKey,$type in $spacing-types {
     // .mx-1
@@ -172,4 +128,13 @@ $spacing-sizes:(
     border-radius: 0.1538rem;
     font-size:map-get($font-sizes , 'sm')*$base-font-size;
     padding: 0.2rem 0.6rem;
+}
+
+.w-100{
+    width: 100%;
+}
+
+
+.border-radius{
+    border-radius: 0.5* $base-font-size 1*$base-font-size;
 }
