@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="topbar"></div>
         {{ News.title}}
         {{ News.sub_title}}
         <div class="d-flex jc-center">
