@@ -20,6 +20,11 @@ Vue.component('banner',Banner)
 import Card from './components/Card'
 Vue.component('card',Card)
 
+import Charts from './components/Charts'
+Vue.component('my-charts',Charts)
+
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts;
 import axios from 'axios'
 Vue.prototype.$http=axios.create({
   baseURL:"http://localhost:3000/web/api"
