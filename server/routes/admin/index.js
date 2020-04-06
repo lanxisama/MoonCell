@@ -61,7 +61,7 @@ module.exports=(app)=>{
         rs.send(file)
     })
 
-
+    
     app.post('/admin/api/login',async(rq,rs)=>{
         const{username,password}=rq.body
         const user=await AdminUser.findOne({username:username}).select('+password')

@@ -12,7 +12,7 @@ const schema=new mongoose.Schema({
     height:{type:String},  //身高 √
     weight:{type:String},  //体重 √
     attributes:[{type:mongoose.SchemaTypes.ObjectId,ref:"Category"}], //属性 √
-    hidden_attribute:{type:String}, //隐藏特性
+    hidden_attribute:{type:mongoose.SchemaTypes.ObjectId,ref:"Category"}, //隐藏特性
     property:  //属性 A B C D E 
         {        
             strength:{type:String}, //筋力

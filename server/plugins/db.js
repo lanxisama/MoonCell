@@ -5,4 +5,7 @@ module.exports=(app)=>{
         useUnifiedTopology:true,
         useFindAndModify:false,
     })
+
+    //把模型全部引用一次，避免报错
+    require('require-all')(__dirname+'/../models')
 }
