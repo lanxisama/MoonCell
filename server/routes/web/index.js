@@ -44,5 +44,10 @@ module.exports = (app) =>{
             //     )
             rs.send(find)
     })
+    router.get('/category/rank',async function(rq,rs){
+        var find = await Category.find({parent:'5d7736db9ac5d12f70f803bd'}).lean()
+        rs.send(find)
+        console.log(find)
+    })
     app.use('/web/api',router)
 }
