@@ -1,5 +1,6 @@
 <template>
   <div class="hero">
+    <back></back>
       <div class="mx-2" v-if='id'>
         <!-- accordion -->
         <el-collapse >

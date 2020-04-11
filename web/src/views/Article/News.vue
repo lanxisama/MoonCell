@@ -1,5 +1,6 @@
 <template>
     <div>
+        <back></back>
         <div class="topbar"></div>
         {{ News.title}}
         {{ News.sub_title}}

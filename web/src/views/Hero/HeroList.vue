@@ -1,7 +1,8 @@
 <template>
   <div class="herolist">
+    <back></back>
       <div class="d-flex" style="justify-content: space-around;">
-        <div v-for="r in rank" :key='r._id' >
+        <div v-for="r in rank " :key='r._id' >
           <img :src='r.icon' style="width: 2rem; height: 2rem"
           @click="changeRankStatus(r.name)"
           :class="{gray:!options[r.name]}"></img>
@@ -10,7 +11,7 @@
       <div>
         <el-table
         class="mx-2"
-        :data='heros'>
+        :data='SearchHeros'>
           <el-table-column
             prop="avatar"
             label="头像">
@@ -20,7 +21,7 @@
               </template>
           </el-table-column>
           <el-table-column
-            prop="rank"
+            prop="rank.name"
             label="职阶">
           </el-table-column>
           <el-table-column
@@ -37,6 +38,7 @@
   </div>
 </template>
 <script>
+let that;
 export default {
   name:'herolist',
   data(){
@@ -45,6 +47,22 @@ export default {
       heros:[],
       options:{} //查询条件 利用这个东西进行查询判断
     }
+  },
+  computed:{
+      //因为filter中无法直接利用this 而且filter是针对html文本进行操作的？？
+      //所以这里建议使用computed进行数据操作
+      SearchHeros(){
+        var options = this.options
+        var heros = this.heros
+        var result = []
+        for(let item=0;item<heros.length;item++){
+          if(options[heros[item].rank.name]){
+              result.push(heros[item])
+          }
+        }
+        console.log(result)
+        return result
+      }
   },
   methods:{
     async fetchRank(){
@@ -60,10 +78,14 @@ export default {
     },
     changeRankStatus(name){
       this.options[name] = !this.options[name]
+      console.log("数据变化了 同步进行查询")
     },
     toPath(id){
       this.$router.push({ path: `/Hero/${id}` })
     }
+  },
+  beforeMount(){
+      that = this
   },
   created(){
     this.fetchRank()

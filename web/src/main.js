@@ -23,6 +23,9 @@ Vue.component('card',Card)
 import Charts from './components/Charts'
 Vue.component('my-charts',Charts)
 
+import Back from './components/Back'
+Vue.component('back',Back)
+
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 import axios from 'axios'

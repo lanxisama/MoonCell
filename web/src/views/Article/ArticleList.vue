@@ -1,5 +1,6 @@
 <template>
     <div>
+        <back></back>
                 <card title="新闻列表">
                     <div class="ml-3" v-for="(item,index) in news" :key="index">
                     <router-link tag="div" :to="`/News/${item._id}`" >
