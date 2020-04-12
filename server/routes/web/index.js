@@ -26,8 +26,17 @@ module.exports = (app) =>{
         var find = await Article.find().lean()
         rs.send(find)  
     })
+    router.get('/article/:id',async function(rq,rs){
+        var find = await Article.findById(rq.params.id).lean()
+        rs.send(find)  
+    })
+    router.get('/activity/list',async function(rq,rs){
+        var find = await Article.find({type:"活动更新"}).lean()
+        rs.send(find)  
+        // rs.send(find)  
+    })
     router.get('/heros/list',async function(rq,rs){
-        var find = await Hero.find().lean()
+        var find = await Hero.find().populate('rank').lean()
         rs.send(find)  
     })
     router.get('/heros/:id',async function(rq,rs){
@@ -35,19 +44,11 @@ module.exports = (app) =>{
             populate('rank').
             populate('attributes').
             populate('hidden_attribute')
-            // .setOptions(
-            //     {
-            //         populate:'rank',
-            //         // populate:'attributes',
-            //         // populate:'hidden_attribute'
-            //     }
-            //     )
             rs.send(find)
     })
     router.get('/category/rank',async function(rq,rs){
         var find = await Category.find({parent:'5d7736db9ac5d12f70f803bd'}).lean()
         rs.send(find)
-        console.log(find)
     })
     app.use('/web/api',router)
 }
