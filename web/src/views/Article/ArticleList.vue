@@ -6,15 +6,17 @@
                     <router-link tag="div" :to="`/News/${item._id}`" >
                         <div class="d-flex">
                             <p class="my-1 flex-1">{{item.title }} </p>
+                            <p class="mr-3">{{ item.createdAt |date}}</p>
                         </div>
                     </router-link>
                     </div>
                 </card>
-                <card title="文章列表">
+                <card title="文章列表" class="mt-3">
                     <div class="ml-3" v-for="(item,index) in articles" :key="index">
                     <router-link tag="div" :to="`/Article/${item._id}`" >
                         <div class="d-flex">
                             <p class="my-1 flex-1">{{item.type}}    |    {{item.title }} </p>
+                            <p class="mr-3">{{ item.createdAt |date}}</p>
                         </div>
                     </router-link>
                     </div>
@@ -22,8 +24,14 @@
     </div>
 </template>
 <script>
+import dayjs from 'dayjs'
 export default {
   name: "list",
+  filters:{
+    date(val){
+        return dayjs(val).format("YY/MM/DD")
+    }
+  },
   data () {
     return {
         count:'',

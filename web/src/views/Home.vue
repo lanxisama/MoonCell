@@ -61,9 +61,34 @@
         </router-link>
             
       </card>
+                    <!-- <el-image :src="activity[0].banner" class="p-3">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+              </el-image> -->
+        <card title="活动列表">
+          <div v-for="(article,index) in activity" :key="index">
+            <router-link tag="div" class="bg-parimary" :to="`/Article/${article._id}`">
+                <img :src="article.banner" class="avatar-img mt-2 ml-3" :alt='article.title'>
+            </router-link>
+          </div>
+      </card>
       <card title="今日信息">
-          <svg t="1585790800787" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3394" width="200" height="200"><path d="M116.224 414.208a409.6 409.6 0 1 1 297.984 493.568 407.04 407.04 0 0 1-297.984-493.568" fill="#E72D14" p-id="3395"></path><path d="M537.6 498.688l-18.944 23.04L491.008 512l15.872 25.088-18.944 23.04 28.672-7.168 16.384 25.088v-29.696l29.184-7.68-27.648-10.752z m110.592-62.464h-29.696L609.28 409.6l-9.216 28.672h-29.696l24.064 17.408-9.216 28.672 24.064-17.92 24.064 17.92-9.216-28.672z m-48.64-109.568l4.608 31.744 13.824-26.624 29.696 4.608-21.504-20.992L640 288.768l-25.6 11.264-20.992-20.992 4.608 29.696-26.624 13.312z m-61.44-136.704l-18.944 23.04-28.16-11.264 16.384 25.6-19.456 22.528 29.184-7.168 15.872 25.088V238.08l30.208-7.168-27.648-11.264zM329.728 321.536l-28.16-86.528-28.16 86.528h-90.624L256 374.784 227.84 460.8l73.728-51.2 73.216 51.2-28.16-86.016 73.728-51.2z" fill="#FFD700" p-id="3396"></path></svg>{{China}}
-          <svg t="1585791533366" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3862" width="200" height="200"><path d="M957 512c0-245-198-443.7-442.6-445h-4.7C265 68.3 67 267 67 512s198 443.7 442.6 445h4.7C759 955.7 957 757 957 512z m-709 0c0-145.9 118.2-264.1 264.1-264.1 145.8 0 264 118.2 264 264.1 0 145.8-118.2 264-264 264C366.2 776 248 657.8 248 512z" fill="#FFFFFF" p-id="3863"></path><path d="M776 512c0-145.9-118.2-264.1-264-264.1-145.8 0.1-264 118.3-264 264.1s118.2 264 264.1 264C657.8 776 776 657.8 776 512z" fill="#EB0000" p-id="3864"></path></svg>{{Japan}}
+        <ul class="ul-style">
+          <li>
+              <img src="../assets/中国国旗-小.png" class="mr-2">{{China}}
+          </li>
+          <li>
+              <img src="../assets/日本国旗-小.png" class="mt-2 mr-2">{{Japan}}
+          </li>
+          <li>
+            <img src="../assets/list-logo.png" class="mt-2 mr-2">
+            <b>当前进行的活动</b>
+              {{activity[0].title}}
+          </li>
+        </ul>
+           
+           
           <!-- 3.当前活动信息  (在文章列表中去 分类是活动更新的)
           显示格式为：
           [活动信息的title]活动正在进行 -->
@@ -87,7 +112,7 @@ export default {
   name: 'home',
   filters:{
     date(val){
-        return dayjs(val).format("MM/DD")
+        return dayjs(val).format("YY/MM/DD")
     }
   },
   data(){
@@ -97,6 +122,7 @@ export default {
         Japan:'',
         banners:[],
         news:[],
+        activity:[],
         hero:[
           {avatar:''}
           ],
@@ -117,6 +143,10 @@ export default {
       var hero = await this.$http.get('heros/list')
       this.hero = hero.data
     },
+    async fetchActivity(){
+      var activity = await this.$http.get('activity/list');
+      this.activity = activity.data;
+    },
     getTime(){
       var vm = this
       var Japantimezone = 9;
@@ -133,6 +163,7 @@ export default {
     this.fetchBanner();
     this.fetchNews();
     this.fetchHeros();
+    this.fetchActivity();
   },
   updated(){
     this.getTime()
@@ -167,5 +198,8 @@ svg{
 }
 .avatar-img{
   width:5*$base-font-size;
+}
+.ul-style{
+  list-style:none
 }
 </style>
