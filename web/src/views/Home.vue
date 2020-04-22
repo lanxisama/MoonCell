@@ -44,7 +44,8 @@
                 </div>
         </div>
       </div>
-      <card title="活动新闻">
+
+      <card title="活动新闻" v-if="news.length!=0">
         <div class="ml-3" v-for="(item,index) in news" :key="index">
           <router-link tag="div" :to="`/News/${item._id}`" >
               <div class="d-flex">
@@ -54,25 +55,21 @@
           </router-link>
         </div>
       </card>
-      <card title="新增英灵图鉴">
-        
+
+      <card title="新增英灵图鉴" v-if="hero.length!=0">
         <router-link tag="div" class="bg-parimary" :to="`/Hero/${hero[0]._id}`">
               <img :src="hero[0].avatar" class="avatar-img mt-2 ml-3">
-        </router-link>
-            
+        </router-link> 
       </card>
-                    <!-- <el-image :src="activity[0].banner" class="p-3">
-                <div slot="placeholder" class="image-slot">
-                  加载中<span class="dot">...</span>
-                </div>
-              </el-image> -->
-        <card title="活动列表">
+
+        <card title="活动列表" v-if="activity.length!=0">
           <div v-for="(article,index) in activity" :key="index">
             <router-link tag="div" class="bg-parimary" :to="`/Article/${article._id}`">
                 <img :src="article.banner" class="avatar-img mt-2 ml-3" :alt='article.title'>
             </router-link>
           </div>
       </card>
+
       <card title="今日信息">
         <ul class="ul-style">
           <li>
@@ -83,8 +80,8 @@
           </li>
           <li>
             <img src="../assets/list-logo.png" class="mt-2 mr-2">
-            <b>当前进行的活动</b>
-              {{activity[0].title}}
+            <!-- <b v-if="activity[0].title">当前进行的活动 {{activity[0].title}}</b> -->
+               
           </li>
         </ul>
            
@@ -124,7 +121,7 @@ export default {
         news:[],
         activity:[],
         hero:[
-          {avatar:''}
+          
           ],
     }
   },
