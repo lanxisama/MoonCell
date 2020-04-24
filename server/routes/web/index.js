@@ -10,6 +10,7 @@ module.exports = (app) =>{
     const Hero = require('../../models/Hero')
     const Article = require('../../models/Article')
     const Category = require('../../models/Category')
+    const Item = require('../../models/Item')
     router.get('/banner/list',async function(rq,rs){
             var find = await Banner.find().lean()
             rs.send(find)
@@ -41,13 +42,18 @@ module.exports = (app) =>{
     })
     router.get('/heros/:id',async function(rq,rs){
             var find = await Hero.findById(rq.params.id).
-            populate('rank').
+           populate('rank').
             populate('attributes').
-            populate('hidden_attribute')
+            populate('hidden_attribute').populate('spend.item_id')
+            // var find = await Hero.aggregate([])
             rs.send(find)
     })
     router.get('/category/rank',async function(rq,rs){
         var find = await Category.find({parent:'5d7736db9ac5d12f70f803bd'}).lean()
+        rs.send(find)
+    })
+    router.get('/item/list',async(rq,rs)=>{
+        var find = await Item.find().populate('parent').lean()
         rs.send(find)
     })
     app.use('/web/api',router)

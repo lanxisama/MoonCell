@@ -57,7 +57,7 @@ const schema=new mongoose.Schema({
     }, //宝具
     role_detail:{type:String}, //角色信息 介绍    √
     spend:[{
-        item_id:{type:mongoose.SchemaTypes.ObjectId,ref:"Category"}, //素材的_id号
+        item_id:{type:mongoose.SchemaTypes.ObjectId,ref:"Item"}, //素材的_id号
         num:{type:Number}   //所需素材的数量
     }] //升级花费的材料 JSON.stringify  JSON.parse
 })

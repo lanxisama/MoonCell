@@ -82,7 +82,6 @@ module.exports=(app)=>{
            adminType:user.adminType
         },app.get('secret'))
         rs.send({token,username,adminType})
-
     })
     
 
