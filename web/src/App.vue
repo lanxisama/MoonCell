@@ -7,7 +7,7 @@
       :with-header="false"
     >
       <div>
-          <p class="mt-3">/Home 里面</p>
+          <p class="mt-3">MoonCell</p>
       </div>
     </el-drawer>
     <div class="topbar ">
