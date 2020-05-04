@@ -53,4 +53,7 @@ export default {
   top:0;
   z-index:999;
 }
+#app{
+  background: white;
+}
 </style>

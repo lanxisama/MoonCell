@@ -78,5 +78,13 @@ export default {
 }
 </script>
 
+<style scoped>
+#charts{
+  display: flex;
+  justify-content: center;
+  transform: scale(0.8);
+}
+</style>
+
 
 
