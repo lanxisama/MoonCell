@@ -51,7 +51,7 @@
         <div class="ml-3" v-for="(item,index) in news" :key="index">
           <router-link tag="div" :to="`/News/${item._id}`" >
               <div class="d-flex">
-                 <p class="my-1 flex-1">{{item.title }} </p>
+                 <p class="my-1 flex-1 title">{{item.title }} </p>
                 <p class="mr-3">{{ item.createdAt |date}}</p>
               </div>
           </router-link>
@@ -59,8 +59,8 @@
       </card>
 
       <card title="新增英灵图鉴" v-if="hero.length!=0">
-        <router-link tag="div" class="bg-parimary" :to="`/Hero/${hero[0]._id}`">
-              <img :src="hero[0].avatar" class="avatar-img mt-2 ml-3">
+        <router-link tag="div" class="bg-parimary" :to="`/Hero/${hero[hero.length-1]._id}`">
+              <img :src="hero[hero.length-1].avatar" class="avatar-img mt-2 ml-3">
         </router-link> 
       </card>
 
@@ -135,7 +135,13 @@ export default {
     },
     async fetchNews(){
         var news = await this.$http.get('news/list')
+		if(news.data.length<5){
+			this.news = news.data.reverse()
+		}else{
+			this.news = news.data.reverse().slice(0,5)
+		}
         this.news = news.data.slice(0,5)
+		console.log(news.data,this.news)
         //_id title sub_title content  createdAt
     },
     async fetchHeros(){
