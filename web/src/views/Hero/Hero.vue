@@ -61,13 +61,23 @@
           </el-collapse-item>
 
           <el-collapse-item title="技能" name="3">
-              <div
-                v-for="(s,index) in heros.skills" :key="index">
-                <strong style="display:block">{{'技能'+(index+1)}}</strong>
-                  <img :src="s.icon" class="skill"></img>
-                  <p>{{s.name}}</p>
-                  <p>{{s.cd}}</p>
-                  <p>{{s.description}}</p>
+                <div class="skill mt-3">
+                    <div class="d-flex jc-around">
+                        <img :src="item.icon" 
+                            @click="currentSkillIndex=index"
+                            class="icon"
+                            :class="{active:currentSkillIndex===index}"
+                            v-for="(item,index) in heros.skills"
+                            :key="index"
+                            width="60"
+                            height="60">
+                    </div>
+                </div>
+             <div v-if="currentSkill">
+                <strong style="display:block">{{'技能'+(this.currentSkillIndex+1)}}</strong>
+                  <p>{{currentSkill.name}}</p>
+                  <p>{{currentSkill.cd}}</p>
+                  <p>{{currentSkill.description}}</p>
               </div>
                 <el-divider>
                      &nbsp
@@ -128,7 +138,8 @@ export default {
     },
     data(){
       return {
-        heros:{}
+        heros:{},
+		currentSkillIndex:0
       }
     },
     methods:{
@@ -138,17 +149,31 @@ export default {
           // console.log(heroMessage.data.Growth)
       }
     },
+	computed:{
+        currentSkill()
+         {
+			// 通过currentSkillIndex获得当前选中技能
+			return this.heros.skills[this.currentSkillIndex]
+        }
+	},
     created(){
         this.id&&this.fetchHero()
     }
 }
 </script>
 
-<style scoped>
+<style  lang="scss" scoped>
+// @import '../assets/scss/variables';
 .rank{
   width:10%;
 }
-.skill{
+/* .skill{
   width:10%;
+} */
+.skill{
+    img.active{
+        border:2px solid blueviolet;
+        border-radius: 50%;
+    }
 }
 </style>

@@ -93,7 +93,8 @@
           </li>
         </ul>
       </card>
-	  </keep-alive>
+	  </keep-alive> 
+	  
 	  <keep-alive>
       <card title="网站信息" >
 			<div class="mx-3">
