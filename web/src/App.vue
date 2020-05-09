@@ -7,7 +7,7 @@
       :with-header="false"
     >
       <div>
-          <p class="mt-3">MoonCell</p>
+          <p class="text-dark-blue rotate">MoonCell</p>
       </div>
     </el-drawer>
     <div class="topbar ">
@@ -55,5 +55,9 @@ export default {
 }
 #app{
   background: white;
+}
+.rotate{
+	transform: rotate(-90deg) translate(-45rem,0);
+	font-size: 10rem;
 }
 </style>

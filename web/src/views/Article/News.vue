@@ -13,7 +13,7 @@
 <script>
 export default {
     props:{
-        id:{}
+        id:{type:String,required:true}
     },
     data(){
         return {
@@ -28,6 +28,7 @@ export default {
         async getArticle(){
             //banner里图片点击跳转的是文章
             var res = await this.$http(`/news/list/${this.id}`)
+			console.log(this.id)
             this.News = res.data
         }
     },

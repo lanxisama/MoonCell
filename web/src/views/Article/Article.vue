@@ -13,20 +13,17 @@
 <script>
 export default {
     props:{
-        id:{}
+        id:{type:String,required:true}
     },
     data(){
         return {
             News:{
-                title:'',
-                sub_title:'',
-                content:''
+
             }
         }
     },
     methods:{
         async getArticle(){
-            //banner里图片点击跳转的是文章
             var res = await this.$http(`/article/${this.id}`)
             this.News = res.data
         }

@@ -29,6 +29,7 @@ Vue.component('back',Back)
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 import axios from 'axios'
+
 Vue.prototype.$http=axios.create({
   baseURL:"http://localhost:3000/web/api"
 });

@@ -46,7 +46,8 @@
                 </div>
         </div>
       </div>
-
+	  
+	<keep-alive>
       <card title="活动新闻" v-if="news.length!=0">
         <div class="ml-3" v-for="(item,index) in news" :key="index">
           <router-link tag="div" :to="`/News/${item._id}`" >
@@ -57,23 +58,29 @@
           </router-link>
         </div>
       </card>
-
+	  </keep-alive>
+	  
+	<keep-alive>
       <card title="新增英灵图鉴" v-if="hero.length!=0">
         <router-link tag="div" class="bg-parimary" :to="`/Hero/${hero[hero.length-1]._id}`">
               <img :src="hero[hero.length-1].avatar" class="avatar-img mt-2 ml-3">
         </router-link> 
       </card>
-
+	</keep-alive>
+	
+	<keep-alive>
         <card title="活动列表" v-if="activity.length!=0">
           <div v-for="(article,index) in activity" :key="index">
             <router-link tag="div" class="bg-parimary" :to="`/Article/${article._id}`">
-                <img :src="article.banner" class="avatar-img mt-2 ml-3" :alt='article.title'>
+                <img :src="article.banner" class="activity-img mt-2 ml-3" :alt='article.title'>
             </router-link>
           </div>
       </card>
-
+	</keep-alive>
+	
+	<keep-alive>
       <card title="今日信息">
-        <ul class="ul-style">
+        <ul class="ul-style" >
           <li>
               <img src="../assets/中国国旗-小.png" class="mr-2">{{China}}
           </li>
@@ -82,22 +89,21 @@
           </li>
           <li>
             <img src="../assets/list-logo.png" class="mt-2 mr-2">
-            <!-- <b v-if="activity[0].title">当前进行的活动 {{activity[0].title}}</b> -->
-               
+            <b v-if="activity[0].title" v-text ="'当前进行的活动'+' '+ activity[0].title "> </b>
           </li>
         </ul>
-           
-           
-          <!-- 3.当前活动信息  (在文章列表中去 分类是活动更新的)
-          显示格式为：
-          [活动信息的title]活动正在进行 -->
       </card>
-      <card title="网站信息">
-          <p>关于</p>
-          <p>Mooncell是一一个玩家自由构筑的Fate/GrandOrder中文资讯站。这里提供与FGO有关的资料
-            您可以自由地阅读查看。
-          </p>
+	  </keep-alive>
+	  <keep-alive>
+      <card title="网站信息" >
+			<div class="mx-3">
+				<p><img src="../assets/list-logo.png" class="mt-2 mr-2">关于</p>
+				<p>Mooncell是一一个玩家自由构筑的Fate/GrandOrder中文资讯站。这里提供与FGO有关的资料
+				  您可以自由地阅读查看。
+				</p>
+			</div>
       </card>
+	  </keep-alive>
       <router-view></router-view>
     </div>
 
@@ -206,5 +212,8 @@ svg{
 }
 .ul-style{
   list-style:none
+}
+.activity-img{
+	
 }
 </style>

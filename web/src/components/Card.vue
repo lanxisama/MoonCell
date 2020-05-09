@@ -30,7 +30,7 @@ export default {
     border-bottom: 1px map-get($colors,'light-blue') solid;
 }
 .shadow{
-    box-shadow: 0px 2px 1px 0.5px rgb(182, 182, 182);
+    box-shadow: 0px 0px 2.5px 1.5px rgb(182, 182, 182);
 }
 svg{
     width:10%;

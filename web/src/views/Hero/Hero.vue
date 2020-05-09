@@ -5,7 +5,7 @@
         <!-- accordion -->
         <el-collapse >
           <el-collapse-item title="基础数值" name="1">
-            名字{{heros.name}} <br>
+            名字 {{heros.name}} <br>
             星级
               <el-rate
                 v-model="heros.star"
